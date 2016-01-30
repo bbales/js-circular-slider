@@ -83,15 +83,17 @@ circles = {
     ctx.arc(canvas.width/2,canvas.height/2,circles.second.rad,0,2*Math.PI);
     ctx.stroke();
 
+    // declarations
+    var mag, angle, cx, cy;
     if(mouse.down.enabled){
       // Get magnitude from Origin
-      var mag = Math.sqrt(Math.pow(mouse.down.x - canvas.width/2,2) + Math.pow(mouse.down.y - canvas.height/2,2));
+      mag = Math.sqrt(Math.pow(mouse.down.x - canvas.width/2,2) + Math.pow(mouse.down.y - canvas.height/2,2));
       rad = (mag < circles.first.rad * 1.12 ? circles.first.rad : circles.second.rad);
       // Get angle of mouse relative to Origin
-      var angle = Math.atan((mouse.move.y-canvas.height/2)/(mouse.move.x-canvas.width/2))
+      angle = Math.atan((mouse.move.y-canvas.height/2)/(mouse.move.x-canvas.width/2));
       // Draw a circle in a fixed radius at the calculated angle
-      var cx = Math.cos(angle) * rad;
-      var cy = Math.sin(angle) * rad;
+      cx = Math.cos(angle) * rad;
+      cy = Math.sin(angle) * rad;
 
       ctx.beginPath();
       ctx.arc((mouse.move.x >= canvas.width/2 ? cx : -1*cx)+canvas.width/2,(mouse.move.x >= canvas.width/2 ? cy : -1*cy)+canvas.height/2,10,0,2*Math.PI);
@@ -112,10 +114,10 @@ circles = {
     if(!mouse.down.enabled && mouse.up.checked){
       mouse.up.checked = false;
       // Save last change
-      var angle = Math.atan((mouse.move.y-canvas.height/2)/(mouse.move.x-canvas.width/2))
+      angle = Math.atan((mouse.move.y-canvas.height/2)/(mouse.move.x-canvas.width/2));
       // Draw a circle in a fixed radius at the calculated angle
-      var cx = Math.cos(angle) * rad;
-      var cy = Math.sin(angle) * rad;
+      cx = Math.cos(angle) * rad;
+      cy = Math.sin(angle) * rad;
 
       // Draw affected circle
       ctx.beginPath();
@@ -126,11 +128,9 @@ circles = {
       if(rad == circles.first.rad){
         circles.first.x = (mouse.move.x > canvas.width/2 ? cx : -1*cx)+canvas.width/2;
         circles.first.y = (mouse.move.x > canvas.width/2 ? cy : -1*cy)+canvas.height/2;
-        console.log("inner saved")
-      }else{
+      } else{
         circles.second.x = (mouse.move.x > canvas.width/2 ? cx : -1*cx)+canvas.width/2;
         circles.second.y = (mouse.move.x > canvas.width/2 ? cy : -1*cy)+canvas.height/2;
-        console.log("outer saved")
       }
     }
 
