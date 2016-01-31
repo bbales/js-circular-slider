@@ -24,6 +24,7 @@ circles = {
     x : 0,
     y : 0,
     enabled : false,
+    checked : true,
   };
 
   mouse.move = {
@@ -38,7 +39,7 @@ circles = {
       mouse.down.y = e.offsetY;
       mouse.up.enabled = false;
       mouse.down.enabled = true;
-      mouse.up.checked = true;
+      mouse.up.checked = false;
     },
     up : function(e){
       mouse.up.x = e.offsetX;
@@ -109,8 +110,8 @@ circles = {
       }
     }
 
-    if(!mouse.down.enabled && mouse.up.checked){
-      mouse.up.checked = false;
+    if(!mouse.down.enabled && !mouse.up.checked){
+      mouse.up.checked = true;
       // Save last change
       var angle = Math.atan((mouse.move.y-canvas.height/2)/(mouse.move.x-canvas.width/2))
       // Draw a circle in a fixed radius at the calculated angle
@@ -134,7 +135,7 @@ circles = {
       }
     }
 
-    if(!mouse.down.enabled && !mouse.up.checked){
+    if(!mouse.down.enabled && mouse.up.checked){
         ctx.beginPath();
         ctx.arc(circles.first.x,circles.first.y,10,0,2*Math.PI);
         ctx.stroke();
